@@ -1,0 +1,17 @@
+from selenium.webdriver.common.by import By
+
+
+class CartPage():
+    def __init__(self, driver):
+        self.driver = driver
+
+    def delete_first_product_from_cart(self):
+        cart_icon_element = self.driver.find_element(By.ID, 'nav-cart')
+        cart_icon_element.click()
+
+        first_product_delete_button_element = self.driver.find_element(By.XPATH, "(//input[contains(@value, 'Delete')])[1]")
+        first_product_delete_button_element.click()
+
+    def view_cart(self):
+        cart_button = self.driver.find_element(By.ID,"nav-cart-count")
+        cart_button.click()

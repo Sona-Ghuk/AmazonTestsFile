@@ -1,0 +1,41 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from pages_.basePage import BasePage
+from pages_.cartPage import CartPage
+from pages_.navigationBar import NavigationBar
+
+driver = webdriver.Chrome()
+driver.get("https://www.amazon.com/")
+wait = WebDriverWait(driver, 10)
+
+login_page: object = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#nav-link-accountList')))
+login_page.click()
+
+email_input = wait.until(EC.element_to_be_clickable((By.ID, "ap_email")))
+email_input.send_keys("sona.ghukasyan@gmail.com")
+continue_button = wait.until(EC.element_to_be_clickable((By.ID, "continue")))
+continue_button.click()
+
+time.sleep(5)
+
+
+password_input = wait.until(EC.element_to_be_clickable((By.ID, "ap_password")))
+password_input.send_keys("hasiko07")
+signin_button = wait.until(EC.element_to_be_clickable((By.ID, "signInSubmit")))
+signin_button.click()
+
+navigation_bar = NavigationBar(driver)
+cart_page = CartPage(driver)
+navigation_bar.navigate_to_cart()
+cart_page.view_cart()
+
+base_page = BasePage(driver)
+base_page.fill_field("FieldId", "Hello word")
+
+time.sleep(5)
+
+driver.quit()
